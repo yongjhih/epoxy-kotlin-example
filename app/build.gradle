@@ -1,0 +1,101 @@
+buildscript {
+    ext.kotlin_version = '1.2.41'
+    ext.rxlifecycle_version = '2.2.1'
+    ext.support_version = '26.1.0'
+
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+repositories {
+    google()
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+  compileSdkVersion 27
+
+  defaultConfig {
+    applicationId "com.github.yongjhih.epoxy.app"
+    minSdkVersion 19
+    targetSdkVersion 25
+    versionCode 1
+    versionName "1.0"
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+
+  //dataBinding {
+  //  enabled = true
+  //}
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+configurations.all {
+  resolutionStrategy {
+    // Fix reflection error while code generating from epoxy-compiler and dagger-compiler
+    force 'com.squareup:javapoet:1.8.0'
+  }
+}
+
+dependencies {
+    implementation 'com.airbnb.android:epoxy:2.8.0'
+    kapt 'com.airbnb.android:epoxy-processor:2.8.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-runtime:$kotlin_version"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation("com.android.support.test:runner:0.5") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+    androidTestImplementation("com.android.support.test:rules:0.5") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:2.2.2") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+    androidTestImplementation("com.android.support.test.espresso:espresso-idling-resource:2.2.2") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:2.2.2") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+}
